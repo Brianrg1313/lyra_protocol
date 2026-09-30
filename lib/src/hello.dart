@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 /// Whether the master can serve data (`protocol-v1.md` §4).
 enum EngineState {
   /// Keys are loaded: every op is served.
@@ -49,13 +52,17 @@ final class HelloAnswer {
     required this.minApp,
     required this.instanceId,
     required this.state,
+    this.challenge,
   });
 
   factory HelloAnswer.fromJson(Map<String, Object?> json) {
     final state = EngineState.byName(json["state"]);
     final values = [json["engine"], json["minApp"], json["instanceId"]];
 
-    if (json["protocol"] is! int || state == null || values.any((value) => value is! String)) {
+    final challenge = json["challenge"];
+
+    if (json["protocol"] is! int || state == null || values.any((value) => value is! String) ||
+        (challenge != null && challenge is! String)) {
       throw const FormatException("Not a hello answer");
     }
 
@@ -65,6 +72,7 @@ final class HelloAnswer {
       minApp: values[1] as String,
       instanceId: values[2] as String,
       state: state,
+      challenge: challenge == null ? null : base64.decode(challenge as String),
     );
   }
 
@@ -76,12 +84,17 @@ final class HelloAnswer {
   final String instanceId;
   final EngineState state;
 
+  /// 32 random bytes, only on a connection without a client certificate (a browser): it signs
+  /// them with its device key and sends `device.prove` before anything else (`protocol-v1.md` §3).
+  final Uint8List? challenge;
+
   Map<String, Object?> toJson() => {
     "protocol": protocol,
     "engine": engine,
     "minApp": minApp,
     "instanceId": instanceId,
     "state": state.name,
+    if (challenge != null) "challenge": base64.encode(challenge!),
   };
 }
 

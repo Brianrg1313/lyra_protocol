@@ -98,11 +98,10 @@ final class Spake2 {
     );
   }
 
-  static Uint8List _lengthPrefixed(List<int> bytes) {
-    final length = ByteData(8)..setUint64(0, bytes.length, Endian.little);
-
-    return Uint8List.fromList([...length.buffer.asUint8List(), ...bytes]);
-  }
+  /// RFC 9382's 8-byte little-endian length, byte by byte: `ByteData.setUint64` doesn't exist
+  /// when compiled to JavaScript, and a browser runs this too.
+  static Uint8List _lengthPrefixed(List<int> bytes) =>
+    Uint8List.fromList([for (var i = 0; i < 8; i++) (bytes.length >> (8 * i)) & 0xff, ...bytes]);
 }
 
 enum _Role { a, b }

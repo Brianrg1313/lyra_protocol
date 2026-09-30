@@ -57,6 +57,7 @@ abstract final class Ops {
   static const devicesRename = Op._("devices.rename", OpKind.write);
   static const devicesRevoke = Op._("devices.revoke", OpKind.write);
   static const pairingStart = Op._("pairing.start", OpKind.session);
+  static const devicesBrowserCa = Op._("devices.browserCa", OpKind.read);
 
   // business
   static const businessProfile = Op._("business.profile", OpKind.read);
@@ -157,6 +158,7 @@ abstract final class Ops {
     accountChangePassword, accountSetPin, sessionBootstrap, permissionsOf, permissionsSet,
     permissionsRequestsList, permissionsRequestsCreate, permissionsRequestsInbox,
     permissionsRequestsAnswer, devicesList, devicesRename, devicesRevoke, pairingStart,
+    devicesBrowserCa,
     businessProfile, businessEdit, businessSetLogo, businessSiteGet, businessSiteEdit,
     catalogGet,
     inventoryTablesList, inventoryTablesCreate, inventoryTablesEdit, inventoryTablesDelete,

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:lyra_protocol/lyra_protocol.dart';
 import 'package:test/test.dart';
 
@@ -67,6 +69,20 @@ void main() {
         HelloArgs.fromJson(const HelloArgs(protocol: 1, app: "0.0.7+1", platform: "windows").toJson()).app,
         "0.0.7+1",
       );
+    });
+
+    test('carries a browser challenge', () {
+      final answer = HelloAnswer(
+        protocol: protocolVersion,
+        engine: "0.1.0",
+        minApp: "0.0.7",
+        instanceId: "abc",
+        state: EngineState.ready,
+        challenge: Uint8List.fromList(List.generate(32, (i) => i)),
+      );
+
+      expect(HelloAnswer.fromJson(answer.toJson()).challenge, answer.challenge);
+      expect(() => HelloAnswer.fromJson({...answer.toJson(), "challenge": 7}), throwsFormatException);
     });
 
     test('versions compare without the build suffix', () {

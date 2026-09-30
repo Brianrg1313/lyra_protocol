@@ -16,7 +16,8 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
 - `lib/src/frames.dart` — `Frame.decode`, `RpcRequest`, `RpcResponse` (`ok` / `failed`), `RpcError`
   (`{code, message, action, data}`), `RpcEvent`.
 - `lib/src/errors.dart` — `ErrorCodes` (the common codes of `protocol-v1.md` §8), `ErrorActions` (`login`, `update`).
-- `lib/src/hello.dart` — `HelloArgs`, `HelloAnswer`, `EngineState` (`ready`, `locked`), `Version`.
+- `lib/src/hello.dart` — `HelloArgs`, `HelloAnswer` (with a browser's `challenge`), `EngineState` (`ready`, `locked`),
+  `Version`.
 - `lib/src/rpc_client.dart` — `RpcClient` (ids, out-of-order answers, `events`, `hello`), `FrameSocket`, `RpcClosed`.
 - `lib/src/pairing.dart` — `PairingOffer` (the QR), `PairingDevice`, `DeviceSigner` / `LocalDeviceSigner`, `Pairing`
   (steps, MAC, codes, limits), `PairingChannel`, `pairDevice` (device side), `PairingResult`, `PairingFailure`,
