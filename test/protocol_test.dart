@@ -22,6 +22,26 @@ void main() {
     });
   });
 
+  group('catalogues', () {
+    test('every country quotes in a currency of the snapshot and names its zone', () {
+      for (final country in Catalogs.countryRows) {
+        expect(Catalogs.hasCurrency(country["currency"] as String), isTrue, reason: "${country["code"]}");
+        expect(country["timezone"], isA<String>(), reason: "${country["code"]}");
+      }
+    });
+
+    test('codes are unique and every served name answers rows', () {
+      for (final rows in [Catalogs.countryRows, Catalogs.currencyRows]) {
+        final codes = rows.map((row) => row["code"]).toList();
+        expect(codes.toSet().length, codes.length);
+      }
+      for (final name in Catalogs.names) {
+        expect(Catalogs.named(name), isNotEmpty, reason: name);
+      }
+      expect(Catalogs.named("money.rails"), isNull);
+    });
+  });
+
   group('frames', () {
     test('a request, a response and an event round-trip', () {
       const frames = <Frame>[

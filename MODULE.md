@@ -24,12 +24,16 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
   `DeviceProof` (what a browser signs for `device.prove`).
 - `lib/src/discovery.dart` — `Discovery` (`_lyra._tcp.local`, `advertisedId`, `instanceName`).
 - `lib/src/canonical_json.dart` — `canonicalJson` (sorted keys; what gets hashed or MACed).
+- `lib/src/catalogs.dart` — `Catalogs`: the release's snapshot (`version`, `countryRows` with their zone, `currencyRows`,
+  `languages`, `activities`, `named`, `country`, `hasCurrency`); served by the engine, read by the app before any master.
+- `lib/src/business.dart` — `BusinessFields` (`editable`, `site`: the keys `business.edit` / `business.site.edit` take),
+  `Events` (`businessChanged`).
 - `lib/src/crypto/spake2.dart` — `Spake2` (RFC 9382, P256-SHA256-HKDF-HMAC), `Spake2Keys`.
 - `lib/src/crypto/p256.dart` — `P256` (point checks, SPKI, ECDSA verify of DER or raw signatures), `EcKeyPair`
   (generate, SEC1 PEM, RFC 6979 signing), `Fingerprint`.
 - `lib/src/crypto/der.dart` — `Der` (encoder), `DerReader` / `DerElement` (strict reader), `Pem`.
 - `lib/src/crypto/hashes.dart` — `Hashes` (SHA-256/512, HMAC, HKDF, constant-time compare, random, hex).
-- `test/protocol_test.dart` — catalogue, frame round trips, hello.
+- `test/protocol_test.dart` — op catalogue, bundled catalogues, frame round trips, hello.
 - `test/crypto_test.dart` — RFC 9382 vectors, SPAKE2 in pairing, P-256 keys, RFC 5869 HKDF.
 
 ## Invariants
@@ -38,7 +42,9 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
   A new op goes in the doc and in `Ops` in the same change (CLAUDE.md, local ops rule).
 - `lib/lyra_protocol.dart` never imports `dart:io` (the app's web build imports it); native sockets live in `lib/io.dart`.
 - Every point and signature from a peer goes through `P256.decodePoint` / `P256.verify`, never straight to pointycastle.
-- Domain argument and answer DTOs arrive here with their domain (plan phase 4); until then each spec is the contract.
+- Each domain of plan phase 4 adds its vocabulary here (field keys, event names) in its release; argument and answer
+  shapes stay in its spec.
+- `Catalogs` is the only copy of the bundled catalogues: the app's forms and the engine's checks read the same rows.
 
 ## Commands
 
