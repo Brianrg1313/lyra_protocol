@@ -1,0 +1,11 @@
+name: lyra_protocol
+description: The Lyra LAN protocol shared by the app and the engine (lyra_node).
+version: 0.1.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.9.2
+
+dev_dependencies:
+  lints: ^6.1.0
+  test: ^1.31.0
