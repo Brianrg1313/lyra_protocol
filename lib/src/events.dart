@@ -8,6 +8,13 @@ abstract final class Events {
   /// (`inventory.md`).
   static const tableChanged = "table/changed";
 
+  /// An import's table started being typed: `{id, normalize, ai}` (`inventory.md` I-42).
+  static const tableNormalizing = "table/normalizing";
+
+  /// An import's table is typed and waits for its rows: `{id, ok, normalized, retyped, summarized,
+  /// image}` (`inventory.md` I-45).
+  static const tableReady = "table/ready";
+
   /// A product's balance after a movement: `{productId, table, onHand, reserved, available}`
   /// (`stock.md` ST-15).
   static const stockChanged = "stock/changed";

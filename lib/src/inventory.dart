@@ -124,8 +124,14 @@ abstract final class TableTemplates {
     (FieldTypes.sku, {"en": "SKU", "es": "SKU", "pt": "SKU"}, null),
     (FieldTypes.price, {"en": "Price", "es": "Precio", "pt": "Preço"}, null),
     (FieldTypes.stock, {"en": "Stock", "es": "Existencia", "pt": "Estoque"}, null),
-    (FieldTypes.image, {"en": "Photos", "es": "Fotos", "pt": "Fotos"}, null),
+    (FieldTypes.image, photos, null),
   ];
+
+  /// The image column an import adds when the file has none (I-43).
+  static const photos = {"en": "Photos", "es": "Fotos", "pt": "Fotos"};
+
+  /// An imported table's name when the file gave none (I-42).
+  static const imported = {"en": "Imported table", "es": "Tabla importada", "pt": "Tabela importada"};
 
   static const _size = {"en": "Size", "es": "Talla", "pt": "Tamanho"};
   static const _color = {"en": "Color", "es": "Color", "pt": "Cor"};

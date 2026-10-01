@@ -29,8 +29,8 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
 - `lib/src/business.dart` — `BusinessFields` (`editable`, `site`: the keys `business.edit` / `business.site.edit` take).
 - `lib/src/inventory.dart` — `FieldTypes` (codes, `readOnly`, `searchable`, `listed`, `withUnit`, `long`, `from`),
   `FieldVisibility`, `StockOperations` (operations, `reasons` per operation, `defaults`, `sources`), `TableTemplates`
-  (each template's starting fields, per language).
-- `lib/src/events.dart` — `Events` (`businessChanged`, `tableChanged`, `stockChanged`).
+  (each template's starting fields, per language; `photos` and `imported`, the names an import gives).
+- `lib/src/events.dart` — `Events` (`businessChanged`, `tableChanged`, `tableNormalizing`, `tableReady`, `stockChanged`).
 - `lib/src/files.dart` — `FileSizes` (`thumbnail`: the one thumbnail width a master keeps).
 - `lib/src/crypto/spake2.dart` — `Spake2` (RFC 9382, P256-SHA256-HKDF-HMAC), `Spake2Keys`.
 - `lib/src/crypto/p256.dart` — `P256` (point checks, SPKI, ECDSA verify of DER or raw signatures), `EcKeyPair`
