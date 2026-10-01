@@ -21,6 +21,7 @@ export 'src/files.dart';
 export 'src/frames.dart';
 export 'src/hello.dart';
 export 'src/inventory.dart';
+export 'src/money.dart';
 export 'src/ops.dart';
 export 'src/pairing.dart';
 export 'src/pos.dart';

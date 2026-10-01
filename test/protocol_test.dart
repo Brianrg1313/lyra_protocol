@@ -108,6 +108,28 @@ void main() {
     });
   });
 
+  group('money', () {
+    test('concepts are named in every language the company can use', () {
+      for (final MapEntry(key: concept, value: kind) in MoneyConcepts.kinds.entries) {
+        expect(kind.$4.keys.toSet(), Catalogs.languages, reason: concept);
+      }
+    });
+
+    test('split by direction; without credit, nothing that settles a credit ticket (M-1, M-7)', () {
+      final incoming = MoneyConcepts.rows("es", direction: MoneyConcepts.incoming, credit: false);
+
+      expect(incoming.map((row) => row["concept"]), ["advance", "supplier_refund", "capital", "loan", "other_income"]);
+      expect(MoneyConcepts.rows("es", direction: MoneyConcepts.incoming).first, {
+        "concept": "settlement", "name": "Cobro de una venta a crédito", "direction": "in", "ticket": true,
+        "settles": true,
+      });
+      expect(MoneyConcepts.rows("en", direction: MoneyConcepts.outgoing).where((row) => row["ticket"] == true)
+        .map((row) => row["concept"]), ["customer_refund"]);
+      expect(MoneyConcepts.name("rent", "ja"), "Rent");
+      expect(MoneyConcepts.name("sale", "es"), isNull);
+    });
+  });
+
   group('frames', () {
     test('a request, a response and an event round-trip', () {
       const frames = <Frame>[
