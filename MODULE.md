@@ -20,7 +20,8 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
   `Version`.
 - `lib/src/rpc_client.dart` — `RpcClient` (ids, out-of-order answers, `events`, `hello`), `FrameSocket`, `RpcClosed`.
 - `lib/src/pairing.dart` — `PairingOffer` (the QR), `PairingDevice`, `DeviceSigner` / `LocalDeviceSigner`, `Pairing`
-  (steps, MAC, codes, limits), `PairingChannel`, `pairDevice` (device side), `PairingResult`, `PairingFailure`,
+  (steps, MAC, codes, limits), `PasswordSalt` (the password way: bounds, `secretOf` = Argon2id via pointycastle),
+  `PasswordPairing`, `PairingChannel`, `pairDevice` (device side), `PairingResult`, `PairingFailure`,
   `DeviceProof` (what a browser signs for `device.prove`).
 - `lib/src/discovery.dart` — `Discovery` (`_lyra._tcp.local`, `advertisedId`, `instanceName`).
 - `lib/src/canonical_json.dart` — `canonicalJson` (sorted keys; what gets hashed or MACed).

@@ -199,4 +199,26 @@ void main() {
       expect(Version.tryParse("1.2"), isNull);
     });
   });
+
+  group('password pairing', () {
+    Map<String, Object?> salt({int m = 1024, int t = 1, int p = 1, int length = 32, String salt = "AAECAwQFBgcICQoLDA0ODw=="}) =>
+      {"step": "salt", "salt": salt, "m": m, "t": t, "p": p, "length": length};
+
+    test('a salt is read back as sent, and its secret is steady', () {
+      final read = PasswordSalt.tryParse(salt())!;
+
+      expect(read.toJson(), {...salt()}..remove("step"));
+      expect(read.secretOf("correct horse battery"), read.secretOf("correct horse battery"));
+      expect(read.secretOf("correct horse battery"), isNot(read.secretOf("correct horse batterY")));
+    });
+
+    test('a master asking for too much work, or a bad salt, is refused before any hashing', () {
+      expect(PasswordSalt.tryParse(salt(m: PasswordSalt.maxMemory + 1)), isNull);
+      expect(PasswordSalt.tryParse(salt(t: PasswordSalt.maxIterations + 1)), isNull);
+      expect(PasswordSalt.tryParse(salt(p: 0)), isNull);
+      expect(PasswordSalt.tryParse(salt(length: 8)), isNull);
+      expect(PasswordSalt.tryParse(salt(salt: "AA==")), isNull);
+      expect(PasswordSalt.tryParse(salt(salt: "not base64!")), isNull);
+    });
+  });
 }

@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:pointycastle/key_derivators/api.dart' show Argon2Parameters;
+import 'package:pointycastle/key_derivators/argon2.dart';
+
 import './canonical_json.dart';
 import './crypto/hashes.dart';
 import './crypto/p256.dart';
@@ -83,6 +86,97 @@ enum PairingSecret {
 
   /// The QR's token, scanned.
   token,
+
+  /// The account's password ([PasswordSalt]): the sign in of a new device is its pairing.
+  password,
+}
+
+/// How the master hashed an account's password, which the device needs to derive the same
+/// pairing secret (`protocol-v1.md` §3, the password way). Argon2id, as `session.md` S-3 stores it.
+///
+/// An unknown login gets a decoy that looks the same, so the answer doesn't tell who has an
+/// account.
+final class PasswordSalt {
+  const PasswordSalt({
+    required this.salt,
+    required this.memory,
+    required this.iterations,
+    required this.parallelism,
+    required this.length,
+  });
+
+  /// Null when [json] isn't a salt, or asks for more work than a device should do: a master in
+  /// the middle could otherwise make it hash for minutes or run out of memory.
+  static PasswordSalt? tryParse(Map<String, Object?> json) {
+    final m = json["m"], t = json["t"], p = json["p"], length = json["length"], salt = json["salt"];
+
+    if (m is! int || t is! int || p is! int || length is! int || salt is! String) return null;
+    if (m < 8 || m > maxMemory || t < 1 || t > maxIterations || p < 1 || p > maxParallelism) return null;
+    if (length < 16 || length > 64) return null;
+
+    try {
+      final bytes = base64.decode(salt);
+      if (bytes.length < 8 || bytes.length > 64) return null;
+
+      return PasswordSalt(salt: bytes, memory: m, iterations: t, parallelism: p, length: length);
+    } on FormatException {
+      return null;
+    }
+  }
+
+  /// Ceilings a device accepts: four times today's standard (`session.md` S-3, 64 MiB, t=3, p=1).
+  static const int maxMemory = 262144;
+  static const int maxIterations = 12;
+  static const int maxParallelism = 4;
+
+  final Uint8List salt;
+
+  /// KiB.
+  final int memory;
+  final int iterations;
+  final int parallelism;
+
+  /// Bytes of the digest.
+  final int length;
+
+  Map<String, Object?> toJson() => {
+    "salt": base64.encode(salt),
+    "m": memory,
+    "t": iterations,
+    "p": parallelism,
+    "length": length,
+  };
+
+  /// The pairing secret of [password]: base64 of its Argon2id digest, which is what the master
+  /// keeps in the account's hash. Slow on purpose (seconds on a phone); run it off the UI thread.
+  String secretOf(String password) {
+    final generator = Argon2BytesGenerator()
+      ..init(Argon2Parameters(
+        Argon2Parameters.ARGON2_id,
+        Uint8List.fromList(salt),
+        desiredKeyLength: length,
+        iterations: iterations,
+        memory: memory,
+        lanes: parallelism,
+        version: Argon2Parameters.ARGON2_VERSION_13,
+      ));
+
+    return base64.encode(generator.process(Uint8List.fromList(utf8.encode(password))));
+  }
+}
+
+/// A sign in that pairs: the account's login and password are the secret, so no code is needed.
+final class PasswordPairing {
+  const PasswordPairing({required this.login, required this.password, this.derive});
+
+  final String login;
+  final String password;
+
+  /// Runs [PasswordSalt.secretOf] where it doesn't freeze the caller (an isolate); in place by
+  /// default.
+  final Future<String> Function(PasswordSalt salt, String password)? derive;
+
+  Future<String> secret(PasswordSalt salt) async => derive == null ? salt.secretOf(password) : derive!(salt, password);
 }
 
 /// What a device says about itself when it pairs; it appears in "Devices" (`session.md`).
@@ -166,6 +260,9 @@ abstract final class Pairing {
   static const String noPairing = "pairing_closed";
   static const String badRequest = "bad_request";
 
+  /// The password way, to the right password of a locked account (`session.md` S-4).
+  static const String accountLocked = "account_locked";
+
   /// Adds the `mac` of [message] under [key].
   static Map<String, Object?> seal(Map<String, Object?> message, List<int> key) =>
     {...message, "mac": base64.encode(Hashes.hmacSha256(key, utf8.encode(canonicalJson(message))))};
@@ -248,16 +345,19 @@ final class PairingFailure implements Exception {
 
 /// Runs the device's side of `/pair`.
 ///
-/// [offer] is the scanned QR (the token is the secret and its CA fingerprint is checked), or
-/// null with [code] when the person typed it.
+/// [offer] is the scanned QR (the token is the secret and its CA fingerprint is checked), [code]
+/// when the person typed it, or [password] when the sign in of a new device pairs it.
 Future<PairingResult> pairDevice(
   PairingChannel channel, {
   required PairingDevice device,
   required DeviceSigner signer,
   PairingOffer? offer,
   String? code,
+  PasswordPairing? password,
 }) async {
-  if ((offer == null) == (code == null)) throw ArgumentError("Pair with a QR or with a code");
+  if ([offer, code, password].where((secret) => secret != null).length != 1) {
+    throw ArgumentError("Pair with a QR, a code or a password");
+  }
 
   final hello = await channel.receive();
   final instanceId = hello["instanceId"];
@@ -267,12 +367,27 @@ Future<PairingResult> pairDevice(
   // A QR names its master; another one answering is not the one on the screen.
   if (offer != null && offer.instanceId != instanceId) throw const PairingFailure(PairingFailure.wrongMaster);
 
-  final w = Spake2.passwordScalar(offer?.token ?? code!, instanceId: instanceId);
+  String secret;
+  if (password != null) {
+    channel.send({"step": "account", "login": password.login});
+
+    final answer = await channel.receive();
+    if (answer["step"] == "failed") throw PairingFailure(answer["code"] as String? ?? Pairing.failed);
+
+    final salt = answer["step"] == "salt" ? PasswordSalt.tryParse(answer) : null;
+    if (salt == null) throw const PairingFailure(Pairing.badRequest);
+
+    secret = await password.secret(salt);
+  } else {
+    secret = offer?.token ?? code!;
+  }
+
+  final w = Spake2.passwordScalar(secret, instanceId: instanceId);
   final spake = Spake2.a(w, idA: Pairing.idDevice, idB: instanceId, aad: Pairing.aad);
 
   channel.send({
     "step": "start",
-    "secret": offer != null ? PairingSecret.token.name : PairingSecret.code.name,
+    "secret": (offer != null ? PairingSecret.token : password != null ? PairingSecret.password : PairingSecret.code).name,
     "pA": base64.encode(spake.message),
   });
 
