@@ -131,3 +131,18 @@ abstract final class MoneyLimits {
   /// a little fast still records "now".
   static const futureSkew = Duration(minutes: 5);
 }
+
+/// What `export.accounting` takes (`money.md` M-60 to M-65).
+abstract final class AccountingExport {
+  /// The datasets, in the order a file lists them.
+  static const datasets = ["sales", "sale_lines", "payments", "receivables", "stock_movements"];
+
+  /// The formats: CSV files in a zip, or one workbook.
+  static const formats = ["csv", "xlsx"];
+
+  /// More rows than this, all datasets together, is `too_large`: narrow the window.
+  static const maxRows = 1000000;
+
+  /// How long the file can be downloaded.
+  static const lifetime = Duration(hours: 1);
+}
