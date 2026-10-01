@@ -42,6 +42,27 @@ void main() {
     });
   });
 
+  group('inventory', () {
+    test('every template field is a real type, with at most one STOCK and one TITLE, named in English', () {
+      for (final MapEntry(key: code, value: fields) in TableTemplates.fields.entries) {
+        expect(fields.map((field) => field.$1), everyElement(isIn(FieldTypes.all)), reason: code);
+        expect(fields.where((field) => field.$1 == FieldTypes.stock), hasLength(1), reason: code);
+        expect(fields.where((field) => field.$1 == FieldTypes.title), hasLength(1), reason: code);
+        expect(fields.map((field) => field.$2["en"]), everyElement(isNotNull), reason: code);
+      }
+      expect(TableTemplates.exists(TableTemplates.blank), isTrue);
+    });
+
+    test('a default reason belongs to its operation; a reserve has none', () {
+      for (final MapEntry(key: operation, value: reason) in StockOperations.defaults.entries) {
+        expect(StockOperations.reasons[operation], contains(reason));
+      }
+      expect(StockOperations.defaults.containsKey(StockOperations.reserve), isFalse);
+      expect(FieldTypes.from("select"), FieldTypes.options);
+      expect(FieldTypes.from("VECTOR"), isNull);
+    });
+  });
+
   group('frames', () {
     test('a request, a response and an event round-trip', () {
       const frames = <Frame>[

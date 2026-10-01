@@ -26,14 +26,18 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
 - `lib/src/canonical_json.dart` — `canonicalJson` (sorted keys; what gets hashed or MACed).
 - `lib/src/catalogs.dart` — `Catalogs`: the release's snapshot (`version`, `countryRows` with their zone, `currencyRows`,
   `languages`, `activities`, `named`, `country`, `hasCurrency`); served by the engine, read by the app before any master.
-- `lib/src/business.dart` — `BusinessFields` (`editable`, `site`: the keys `business.edit` / `business.site.edit` take),
-  `Events` (`businessChanged`).
+- `lib/src/business.dart` — `BusinessFields` (`editable`, `site`: the keys `business.edit` / `business.site.edit` take).
+- `lib/src/inventory.dart` — `FieldTypes` (codes, `readOnly`, `searchable`, `listed`, `withUnit`, `long`, `from`),
+  `FieldVisibility`, `StockOperations` (operations, `reasons` per operation, `defaults`, `sources`), `TableTemplates`
+  (each template's starting fields, per language).
+- `lib/src/events.dart` — `Events` (`businessChanged`, `tableChanged`, `stockChanged`).
+- `lib/src/files.dart` — `FileSizes` (`thumbnail`: the one thumbnail width a master keeps).
 - `lib/src/crypto/spake2.dart` — `Spake2` (RFC 9382, P256-SHA256-HKDF-HMAC), `Spake2Keys`.
 - `lib/src/crypto/p256.dart` — `P256` (point checks, SPKI, ECDSA verify of DER or raw signatures), `EcKeyPair`
   (generate, SEC1 PEM, RFC 6979 signing), `Fingerprint`.
 - `lib/src/crypto/der.dart` — `Der` (encoder), `DerReader` / `DerElement` (strict reader), `Pem`.
 - `lib/src/crypto/hashes.dart` — `Hashes` (SHA-256/512, HMAC, HKDF, constant-time compare, random, hex).
-- `test/protocol_test.dart` — op catalogue, bundled catalogues, frame round trips, hello.
+- `test/protocol_test.dart` — op catalogue, bundled catalogues, inventory vocabulary, frame round trips, hello.
 - `test/crypto_test.dart` — RFC 9382 vectors, SPAKE2 in pairing, P-256 keys, RFC 5869 HKDF.
 
 ## Invariants

@@ -17,9 +17,3 @@ abstract final class BusinessFields {
     "country", "latitude", "longitude", "storefront", "online",
   };
 }
-
-/// Event names of `protocol-v1.md` §5 the engine emits so far.
-abstract final class Events {
-  /// A profile field or the logo changed: `{keys: [...]}` (`business.md`).
-  static const businessChanged = "business/changed";
-}
