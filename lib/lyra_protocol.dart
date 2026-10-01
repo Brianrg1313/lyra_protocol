@@ -15,6 +15,7 @@ export 'src/crypto/hashes.dart';
 export 'src/crypto/p256.dart';
 export 'src/crypto/spake2.dart';
 export 'src/discovery.dart';
+export 'src/employees.dart';
 export 'src/errors.dart';
 export 'src/events.dart';
 export 'src/files.dart';
