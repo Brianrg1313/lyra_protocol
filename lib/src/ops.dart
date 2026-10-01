@@ -60,6 +60,7 @@ abstract final class Ops {
   static const devicesBrowserCa = Op._("devices.browserCa", OpKind.read);
 
   // business
+  static const businessCreate = Op._("business.create", OpKind.write);
   static const businessProfile = Op._("business.profile", OpKind.read);
   static const businessEdit = Op._("business.edit", OpKind.write);
   static const businessSetLogo = Op._("business.setLogo", OpKind.write);
@@ -159,7 +160,7 @@ abstract final class Ops {
     permissionsRequestsList, permissionsRequestsCreate, permissionsRequestsInbox,
     permissionsRequestsAnswer, devicesList, devicesRename, devicesRevoke, pairingStart,
     devicesBrowserCa,
-    businessProfile, businessEdit, businessSetLogo, businessSiteGet, businessSiteEdit,
+    businessCreate, businessProfile, businessEdit, businessSetLogo, businessSiteGet, businessSiteEdit,
     catalogGet,
     inventoryTablesList, inventoryTablesCreate, inventoryTablesEdit, inventoryTablesDelete,
     inventoryTablesStructure, inventoryTablesDetails, inventoryTablesNormalize,
