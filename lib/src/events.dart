@@ -18,4 +18,11 @@ abstract final class Events {
   /// A product's balance after a movement: `{productId, table, onHand, reserved, available}`
   /// (`stock.md` ST-15).
   static const stockChanged = "stock/changed";
+
+  /// A POS ticket was opened, a line written on it, charged or cancelled: `{id, ticket, units,
+  /// total}`, the thin payload every till reads its own ticket back from (`pos.md`, events).
+  static const invoiceOpened = "invoice/opened";
+  static const invoiceUpdated = "invoice/updated";
+  static const invoiceClosed = "invoice/closed";
+  static const invoiceCancelled = "invoice/cancelled";
 }

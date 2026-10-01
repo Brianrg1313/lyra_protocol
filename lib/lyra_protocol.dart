@@ -23,5 +23,6 @@ export 'src/hello.dart';
 export 'src/inventory.dart';
 export 'src/ops.dart';
 export 'src/pairing.dart';
+export 'src/pos.dart';
 export 'src/rpc_client.dart';
 export 'src/version.dart';

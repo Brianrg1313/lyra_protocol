@@ -30,14 +30,17 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
 - `lib/src/inventory.dart` — `FieldTypes` (codes, `readOnly`, `searchable`, `listed`, `withUnit`, `long`, `from`),
   `FieldVisibility`, `StockOperations` (operations, `reasons` per operation, `defaults`, `sources`), `TableTemplates`
   (each template's starting fields, per language; `photos` and `imported`, the names an import gives).
-- `lib/src/events.dart` — `Events` (`businessChanged`, `tableChanged`, `tableNormalizing`, `tableReady`, `stockChanged`).
+- `lib/src/events.dart` — `Events` (`businessChanged`, `tableChanged`, `tableNormalizing`, `tableReady`, `stockChanged`,
+  `invoiceOpened` / `Updated` / `Closed` / `Cancelled`).
+- `lib/src/pos.dart` — `Settlements` (the settlement kinds with their flags and names per language, `rows` without
+  credit, `name`), `PosLimits`.
 - `lib/src/files.dart` — `FileSizes` (`thumbnail`: the one thumbnail width a master keeps).
 - `lib/src/crypto/spake2.dart` — `Spake2` (RFC 9382, P256-SHA256-HKDF-HMAC), `Spake2Keys`.
 - `lib/src/crypto/p256.dart` — `P256` (point checks, SPKI, ECDSA verify of DER or raw signatures), `EcKeyPair`
   (generate, SEC1 PEM, RFC 6979 signing), `Fingerprint`.
 - `lib/src/crypto/der.dart` — `Der` (encoder), `DerReader` / `DerElement` (strict reader), `Pem`.
 - `lib/src/crypto/hashes.dart` — `Hashes` (SHA-256/512, HMAC, HKDF, constant-time compare, random, hex).
-- `test/protocol_test.dart` — op catalogue, bundled catalogues, inventory vocabulary, frame round trips, hello.
+- `test/protocol_test.dart` — op catalogue, bundled catalogues, inventory and POS vocabulary, frame round trips, hello.
 - `test/crypto_test.dart` — RFC 9382 vectors, SPAKE2 in pairing, P-256 keys, RFC 5869 HKDF.
 
 ## Invariants

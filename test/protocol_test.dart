@@ -63,6 +63,22 @@ void main() {
     });
   });
 
+  group('pos', () {
+    test('settlement kinds: one default, every language the company can use, credit left out on request', () {
+      expect(Settlements.kinds.keys, contains(Settlements.defaultMethod));
+      for (final MapEntry(key: method, value: kind) in Settlements.kinds.entries) {
+        expect(kind.$4.keys.toSet(), Catalogs.languages, reason: method);
+      }
+
+      final offline = Settlements.rows("es", credit: false);
+      expect(offline.map((row) => row["method"]), isNot(contains("account")));
+      expect(offline.where((row) => row["default"] == true).single["name"], "Efectivo");
+      expect(Settlements.rows("ja").first["name"], "Cash");
+      expect(Settlements.name("account", "pt"), "Crédito da loja");
+      expect(Settlements.name("barter", "es"), isNull);
+    });
+  });
+
   group('frames', () {
     test('a request, a response and an event round-trip', () {
       const frames = <Frame>[
