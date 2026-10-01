@@ -25,4 +25,8 @@ abstract final class Events {
   static const invoiceUpdated = "invoice/updated";
   static const invoiceClosed = "invoice/closed";
   static const invoiceCancelled = "invoice/cancelled";
+
+  /// A sale's stage or section changed (`sales.md`, events): the app's `SaleProgressModel`, every
+  /// key present, `section: null` when the row left both lists.
+  static const saleProgress = "sale/progress";
 }

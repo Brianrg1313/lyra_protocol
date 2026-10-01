@@ -31,7 +31,9 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
   `FieldVisibility`, `StockOperations` (operations, `reasons` per operation, `defaults`, `sources`), `TableTemplates`
   (each template's starting fields, per language; `photos` and `imported`, the names an import gives).
 - `lib/src/events.dart` — `Events` (`businessChanged`, `tableChanged`, `tableNormalizing`, `tableReady`, `stockChanged`,
-  `invoiceOpened` / `Updated` / `Closed` / `Cancelled`).
+  `invoiceOpened` / `Updated` / `Closed` / `Cancelled`, `saleProgress`).
+- `lib/src/sales.dart` — `SaleStages` (the cloud's stages in precedence with section, level, attention, `offline` and
+  names per language), `Handover` (modes, their states, names), `SaleChannels` (the counter).
 - `lib/src/pos.dart` — `Settlements` (the settlement kinds with their flags and names per language, `rows` without
   credit, `name`), `PosLimits`.
 - `lib/src/files.dart` — `FileSizes` (`thumbnail`: the one thumbnail width a master keeps).

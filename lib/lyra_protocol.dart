@@ -25,4 +25,5 @@ export 'src/ops.dart';
 export 'src/pairing.dart';
 export 'src/pos.dart';
 export 'src/rpc_client.dart';
+export 'src/sales.dart';
 export 'src/version.dart';

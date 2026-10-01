@@ -79,6 +79,35 @@ void main() {
     });
   });
 
+  group('sales', () {
+    test('stages, modes and states are named in every language the company can use', () {
+      for (final MapEntry(key: stage, value: kind) in SaleStages.kinds.entries) {
+        expect(kind.$5.keys.toSet(), Catalogs.languages, reason: stage);
+      }
+      for (final MapEntry(key: mode, value: (_, names)) in Handover.modes.entries) {
+        expect(names.keys.toSet(), Catalogs.languages, reason: mode);
+      }
+      for (final MapEntry(key: state, value: names) in Handover.states.entries) {
+        expect(names.keys.toSet(), Catalogs.languages, reason: state);
+      }
+    });
+
+    test('offline, only the stages a master measures, in precedence order (SA-2)', () {
+      expect(SaleStages.rows("es", offline: true).map((row) => row["stage"]),
+        ["open", "shipping", "handover", "transit", "pickup", "completed"]);
+      expect(SaleStages.rows("es").first, {
+        "stage": "open", "name": "Ticket abierto", "section": "process", "level": "info", "attention": true,
+      });
+      expect(SaleStages.name("completed", "ja"), "Sale completed");
+      expect(Handover.rows("es").last["states"], [
+        {"state": "pending", "name": "Sin entregar"},
+        {"state": "dispatched", "name": "Despachado"},
+        {"state": "done", "name": "Entregado"},
+      ]);
+      expect(SaleChannels.rows("en"), [{"channel": "pos", "name": "Point of sale", "default": true}]);
+    });
+  });
+
   group('frames', () {
     test('a request, a response and an event round-trip', () {
       const frames = <Frame>[
