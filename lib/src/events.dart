@@ -4,6 +4,10 @@ abstract final class Events {
   /// A profile field or the logo changed: `{keys: [...]}` (`business.md`).
   static const businessChanged = "business/changed";
 
+  /// This session's person's permissions or access changed: `{accountId}`, only to their own
+  /// sessions, which re-read the bootstrap (`session.md` P-8).
+  static const permissionsChanged = "permissions/changed";
+
   /// A table's name, fields or records changed: `{id, what: "structure" | "records"}`
   /// (`inventory.md`).
   static const tableChanged = "table/changed";

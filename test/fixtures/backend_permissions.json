@@ -1,0 +1,374 @@
+{
+  "catalog": [
+    {
+      "key": "inventory",
+      "actions": [
+        "restock",
+        "remove",
+        "return",
+        "hold",
+        "configure",
+        "pictures"
+      ]
+    },
+    {
+      "key": "reservations",
+      "actions": [
+        "create",
+        "manage"
+      ]
+    },
+    {
+      "key": "pos",
+      "actions": [
+        "sell",
+        "cancel"
+      ]
+    },
+    {
+      "key": "sales",
+      "actions": [
+        "fulfill"
+      ]
+    },
+    {
+      "key": "money",
+      "actions": [
+        "charge",
+        "void",
+        "accounts",
+        "export"
+      ]
+    },
+    {
+      "key": "employees",
+      "actions": [
+        "manage"
+      ]
+    },
+    {
+      "key": "permissions",
+      "actions": [
+        "assign",
+        "templates"
+      ]
+    },
+    {
+      "key": "products",
+      "actions": [
+        "create",
+        "edit",
+        "delete",
+        "import",
+        "structure"
+      ]
+    },
+    {
+      "key": "chats",
+      "actions": [
+        "reply",
+        "manage",
+        "assign",
+        "bot"
+      ]
+    },
+    {
+      "key": "channels",
+      "actions": [
+        "create",
+        "edit",
+        "delete",
+        "connect"
+      ]
+    },
+    {
+      "key": "appointments",
+      "actions": [
+        "book",
+        "configure"
+      ]
+    },
+    {
+      "key": "knowledge",
+      "actions": [
+        "create",
+        "edit",
+        "delete"
+      ]
+    },
+    {
+      "key": "branches",
+      "actions": [
+        "create",
+        "edit",
+        "delete"
+      ]
+    },
+    {
+      "key": "delivery",
+      "actions": [
+        "create",
+        "edit",
+        "delete"
+      ]
+    },
+    {
+      "key": "business",
+      "actions": [
+        "edit",
+        "emails"
+      ]
+    },
+    {
+      "key": "server",
+      "actions": [
+        "devices",
+        "backups",
+        "stop"
+      ]
+    }
+  ],
+  "areas": {
+    "business.view": null,
+    "business.delete": "*",
+    "business.statistics.view": "business",
+    "business.employees.view": "employees",
+    "business.employees.view_personal": "employees",
+    "business.employees.invite": "employees.manage",
+    "business.employees.permissions": [
+      "permissions",
+      "permissions.assign"
+    ],
+    "business.branches.view": null,
+    "business.branches.create": "branches.create",
+    "business.branches.edit": "branches.edit",
+    "business.clients.view": "chats",
+    "business.settings.view": "business",
+    "business.settings.edit": "business.edit",
+    "business.settings.edit_logo": "business.edit",
+    "business.settings.manage_emails": "business.emails",
+    "messages.view": "chats",
+    "messages.reply": "chats.reply",
+    "messages.take_over": "chats.bot",
+    "messages.assign": "chats.assign",
+    "messages.edit_tags": "*",
+    "messages.set_stage": "chats.manage",
+    "messages.resolve_attention": "chats.manage",
+    "messages.view_usage": "chats",
+    "deliveries.view": "delivery",
+    "deliveries.create": "*",
+    "deliveries.settings.view": "delivery",
+    "deliveries.settings.edit": [
+      "delivery.create",
+      "delivery.edit",
+      "delivery.delete"
+    ],
+    "deliveries.areas.view": "delivery",
+    "deliveries.areas.create": "delivery.create",
+    "deliveries.areas.edit": "delivery.edit",
+    "deliveries.areas.delete": "delivery.delete",
+    "sales.view": "sales",
+    "sales.view_all": "sales",
+    "sales.fulfil": "sales.fulfill",
+    "sales.approve": "chats.manage",
+    "sales.process.view": "sales",
+    "sales.done.view": "sales",
+    "inventory.view": "products",
+    "inventory.create_table": "products.structure",
+    "inventory.import": "products.import",
+    "inventory.edit_table": "products.structure",
+    "inventory.delete_table": "products.structure",
+    "inventory.edit_columns": "products.structure",
+    "inventory.edit_records": [
+      "products.create",
+      "products.edit",
+      "products.delete"
+    ],
+    "inventory.move_stock": [
+      "inventory.restock",
+      "inventory.remove"
+    ],
+    "channels.view": "channels",
+    "channels.create": "channels.create",
+    "channels.edit": "channels.edit",
+    "channels.toggle": [
+      "channels.edit",
+      "channels.connect"
+    ],
+    "channels.delete": [
+      "channels.delete",
+      "channels.connect"
+    ],
+    "finance.view": "money",
+    "finance.overview.view": "money",
+    "finance.overview.view_bot_cost": "money",
+    "finance.payments.view": "money",
+    "finance.payments.record": "money.charge",
+    "finance.payments.void": "money.void",
+    "finance.receivables.view": "money",
+    "finance.receivables.collect": "money.charge",
+    "finance.methods.view": "money",
+    "finance.methods.create": "money.accounts",
+    "finance.methods.edit": "money.accounts",
+    "finance.methods.delete": "money.accounts",
+    "finance.methods.manage_currencies": "money.accounts",
+    "finance.export": "money.export",
+    "pos.view": "pos",
+    "pos.sell": "pos.sell",
+    "pos.custom_amount": "pos.sell",
+    "pos.set_tax": "pos.sell",
+    "pos.checkout": "pos.sell",
+    "pos.cancel_ticket": "pos.cancel",
+    "local_server.view": "server",
+    "local_server.devices": "server.devices",
+    "local_server.backups": "server.backups",
+    "local_server.stop": "server.stop",
+    "services.view": "*",
+    "marketing.view": "*",
+    "report.view": "*",
+    "external_services.view": "*",
+    "connections.view": "*",
+    "connections.create": "*",
+    "connections.edit": "*",
+    "connections.delete": "*"
+  },
+  "presets": {
+    "owner": {
+      "all": true
+    },
+    "manager": {
+      "keys": [
+        "inventory",
+        "inventory.restock",
+        "inventory.remove",
+        "inventory.return",
+        "inventory.hold",
+        "inventory.configure",
+        "inventory.pictures",
+        "reservations",
+        "reservations.create",
+        "reservations.manage",
+        "pos",
+        "pos.sell",
+        "pos.cancel",
+        "sales",
+        "sales.fulfill",
+        "money",
+        "money.charge",
+        "money.void",
+        "employees",
+        "employees.manage",
+        "permissions",
+        "permissions.assign",
+        "products",
+        "products.create",
+        "products.edit",
+        "products.delete",
+        "products.import",
+        "products.structure",
+        "chats",
+        "chats.reply",
+        "chats.manage",
+        "chats.assign",
+        "chats.bot",
+        "channels",
+        "channels.edit",
+        "appointments",
+        "appointments.book",
+        "appointments.configure",
+        "knowledge",
+        "knowledge.create",
+        "knowledge.edit",
+        "knowledge.delete",
+        "delivery",
+        "delivery.create",
+        "delivery.edit",
+        "delivery.delete",
+        "business"
+      ]
+    },
+    "marketing": {
+      "keys": [
+        "inventory",
+        "inventory.pictures",
+        "products",
+        "products.create",
+        "products.edit",
+        "products.import",
+        "channels",
+        "channels.edit",
+        "knowledge",
+        "knowledge.create",
+        "knowledge.edit",
+        "knowledge.delete",
+        "chats",
+        "appointments",
+        "pos",
+        "sales"
+      ]
+    },
+    "seller": {
+      "keys": [
+        "inventory",
+        "inventory.hold",
+        "reservations",
+        "reservations.create",
+        "pos",
+        "pos.sell",
+        "sales",
+        "sales.fulfill",
+        "products",
+        "chats",
+        "chats.reply",
+        "chats.manage",
+        "chats.bot",
+        "appointments",
+        "appointments.book",
+        "knowledge",
+        "delivery"
+      ]
+    },
+    "auditor": {
+      "keys": [
+        "inventory",
+        "reservations",
+        "pos",
+        "sales",
+        "money",
+        "employees",
+        "permissions",
+        "products",
+        "chats",
+        "channels",
+        "appointments",
+        "knowledge",
+        "delivery",
+        "business",
+        "server"
+      ]
+    },
+    "billing": {
+      "keys": [
+        "pos",
+        "pos.sell",
+        "pos.cancel",
+        "sales",
+        "money",
+        "money.charge"
+      ]
+    },
+    "finance": {
+      "keys": [
+        "money",
+        "money.charge",
+        "money.void",
+        "money.accounts",
+        "money.export",
+        "sales",
+        "pos",
+        "inventory",
+        "business"
+      ]
+    }
+  }
+}

@@ -47,12 +47,17 @@ abstract final class Ops {
   static const accountChangePassword = Op._("account.changePassword", OpKind.write);
   static const accountSetPin = Op._("account.setPin", OpKind.write);
   static const sessionBootstrap = Op._("session.bootstrap", OpKind.read);
-  static const permissionsOf = Op._("permissions.of", OpKind.read);
-  static const permissionsSet = Op._("permissions.set", OpKind.write);
+  static const permissionsGet = Op._("permissions.get", OpKind.read);
+  static const permissionsTemplatesList = Op._("permissions.templates.list", OpKind.read);
+  static const permissionsTemplatesCreate = Op._("permissions.templates.create", OpKind.write);
+  static const permissionsTemplatesEdit = Op._("permissions.templates.edit", OpKind.write);
+  static const permissionsTemplatesRemove = Op._("permissions.templates.remove", OpKind.write);
+  static const permissionsMembersList = Op._("permissions.members.list", OpKind.read);
+  static const permissionsMembersDetail = Op._("permissions.members.detail", OpKind.read);
+  static const permissionsMembersAssign = Op._("permissions.members.assign", OpKind.write);
+  static const permissionsMembersRevoke = Op._("permissions.members.revoke", OpKind.write);
   static const permissionsRequestsList = Op._("permissions.requests.list", OpKind.read);
   static const permissionsRequestsCreate = Op._("permissions.requests.create", OpKind.write);
-  static const permissionsRequestsInbox = Op._("permissions.requests.inbox", OpKind.read);
-  static const permissionsRequestsAnswer = Op._("permissions.requests.answer", OpKind.write);
   static const devicesList = Op._("devices.list", OpKind.read);
   static const devicesRename = Op._("devices.rename", OpKind.write);
   static const devicesRevoke = Op._("devices.revoke", OpKind.write);
@@ -157,9 +162,10 @@ abstract final class Ops {
   static const List<Op> all = [
     hello, engineUnlock, sessionBind, deviceProve, eventsSubscribe, eventsUnsubscribe,
     authIdentify, authSignIn, authSignInPin, authActivate, authRefresh, authSignOut,
-    accountChangePassword, accountSetPin, sessionBootstrap, permissionsOf, permissionsSet,
-    permissionsRequestsList, permissionsRequestsCreate, permissionsRequestsInbox,
-    permissionsRequestsAnswer, devicesList, devicesRename, devicesRevoke, pairingStart,
+    accountChangePassword, accountSetPin, sessionBootstrap, permissionsGet,
+    permissionsTemplatesList, permissionsTemplatesCreate, permissionsTemplatesEdit, permissionsTemplatesRemove,
+    permissionsMembersList, permissionsMembersDetail, permissionsMembersAssign, permissionsMembersRevoke,
+    permissionsRequestsList, permissionsRequestsCreate, devicesList, devicesRename, devicesRevoke, pairingStart,
     devicesBrowserCa,
     businessCreate, businessProfile, businessEdit, businessSetLogo, businessLink, businessSiteGet, businessSiteEdit,
     catalogGet,

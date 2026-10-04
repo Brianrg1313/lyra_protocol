@@ -31,7 +31,7 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
 - `lib/src/inventory.dart` — `FieldTypes` (codes, `readOnly`, `searchable`, `listed`, `withUnit`, `long`, `from`),
   `FieldVisibility`, `StockOperations` (operations, `reasons` per operation, `defaults`, `sources`), `TableTemplates`
   (each template's starting fields, per language; `photos` and `imported`, the names an import gives).
-- `lib/src/events.dart` — `Events` (`businessChanged`, `tableChanged`, `tableNormalizing`, `tableReady`, `stockChanged`,
+- `lib/src/events.dart` — `Events` (`businessChanged`, `permissionsChanged`, `tableChanged`, `tableNormalizing`, `tableReady`, `stockChanged`,
   `invoiceOpened` / `Updated` / `Closed` / `Cancelled`, `saleProgress`).
 - `lib/src/sales.dart` — `SaleStages` (the cloud's stages in precedence with section, level, attention, `offline` and
   names per language), `Handover` (modes, their states, names), `SaleChannels` (the counter).
@@ -39,6 +39,10 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
   `rows` by direction and without credit, `name`), `MoneyLimits`.
 - `lib/src/pos.dart` — `Settlements` (the settlement kinds with their flags and names per language, `rows` without
   credit, `name`), `PosLimits`.
+- `lib/src/permissions.dart` — the cloud's permission vocabulary, copied from the backend: `PermissionCatalog` (sections
+  and actions, `normalize`, `fromKeys`, `grants`, `changes`, `read`, `merge`, `describe`), `PermissionAreas` (the app's
+  ids → the keys they take: `granted`, `requires`, `tree`), `PermissionPresets` (the global templates), `Grant` (`all` +
+  sections: `can`, `areas`, `tree`), `PermissionsRead`.
 - `lib/src/files.dart` — `FileSizes` (`thumbnail`: the one thumbnail width a master keeps).
 - `lib/src/crypto/spake2.dart` — `Spake2` (RFC 9382, P256-SHA256-HKDF-HMAC), `Spake2Keys`.
 - `lib/src/crypto/p256.dart` — `P256` (point checks, SPKI, ECDSA verify of DER or raw signatures), `EcKeyPair`
@@ -46,6 +50,8 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
 - `lib/src/crypto/der.dart` — `Der` (encoder), `DerReader` / `DerElement` (strict reader), `Pem`.
 - `lib/src/crypto/hashes.dart` — `Hashes` (SHA-256/512, HMAC, HKDF, constant-time compare, random, hex).
 - `test/protocol_test.dart` — op catalogue, bundled catalogues, inventory and POS vocabulary, frame round trips, hello.
+- `test/permissions_test.dart` — the copy equals `test/fixtures/backend_permissions.json` (the backend's
+  `pnpm permissions:export`), and the catalog's rules.
 - `test/crypto_test.dart` — RFC 9382 vectors, SPAKE2 in pairing, P-256 keys, RFC 5869 HKDF.
 
 ## Invariants
@@ -57,6 +63,8 @@ cryptography, the RPC client. The written contract is `lyra/app/docs/offline/pro
 - Each domain of plan phase 4 adds its vocabulary here (field keys, event names) in its release; argument and answer
   shapes stay in its spec.
 - `Catalogs` is the only copy of the bundled catalogues: the app's forms and the engine's checks read the same rows.
+- `permissions.dart` is a copy of the backend's `catalog.js`, `areas.js` and `presets.js`: a change starts there, then
+  the fixture is re-exported and this file follows in the same change (the test fails otherwise).
 
 ## Commands
 
