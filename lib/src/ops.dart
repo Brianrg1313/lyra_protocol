@@ -73,6 +73,9 @@ abstract final class Ops {
   static const businessSiteGet = Op._("business.site.get", OpKind.read);
   static const businessSiteEdit = Op._("business.site.edit", OpKind.write);
   static const catalogGet = Op._("catalog.get", OpKind.read);
+  static const syncPrepare = Op._("sync.prepare", OpKind.write);
+  static const syncEnroll = Op._("sync.enroll", OpKind.write);
+  static const syncStatus = Op._("sync.status", OpKind.read);
 
   // inventory
   static const inventoryTablesList = Op._("inventory.tables.list", OpKind.read);
@@ -168,7 +171,7 @@ abstract final class Ops {
     permissionsRequestsList, permissionsRequestsCreate, devicesList, devicesRename, devicesRevoke, pairingStart,
     devicesBrowserCa,
     businessCreate, businessProfile, businessEdit, businessSetLogo, businessLink, businessSiteGet, businessSiteEdit,
-    catalogGet,
+    catalogGet, syncPrepare, syncEnroll, syncStatus,
     inventoryTablesList, inventoryTablesCreate, inventoryTablesEdit, inventoryTablesDelete,
     inventoryTablesStructure, inventoryTablesDetails, inventoryTablesNormalize,
     inventoryFieldsCreate, inventoryFieldsEdit, inventoryFieldsDelete, inventoryRecordsList,
