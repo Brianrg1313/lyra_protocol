@@ -42,6 +42,8 @@ abstract final class Ops {
   static const authSignIn = Op._("auth.signIn", OpKind.session);
   static const authSignInPin = Op._("auth.signInPin", OpKind.session);
   static const authActivate = Op._("auth.activate", OpKind.session);
+  static const authGrant = Op._("auth.grant", OpKind.session);
+  static const authUnseal = Op._("auth.unseal", OpKind.session);
   static const authRefresh = Op._("auth.refresh", OpKind.session);
   static const authSignOut = Op._("auth.signOut", OpKind.session);
   static const accountChangePassword = Op._("account.changePassword", OpKind.write);
@@ -164,7 +166,7 @@ abstract final class Ops {
 
   static const List<Op> all = [
     hello, engineUnlock, sessionBind, deviceProve, eventsSubscribe, eventsUnsubscribe,
-    authIdentify, authSignIn, authSignInPin, authActivate, authRefresh, authSignOut,
+    authIdentify, authSignIn, authSignInPin, authActivate, authGrant, authUnseal, authRefresh, authSignOut,
     accountChangePassword, accountSetPin, sessionBootstrap, permissionsGet,
     permissionsTemplatesList, permissionsTemplatesCreate, permissionsTemplatesEdit, permissionsTemplatesRemove,
     permissionsMembersList, permissionsMembersDetail, permissionsMembersAssign, permissionsMembersRevoke,
