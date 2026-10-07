@@ -199,6 +199,10 @@
       "channels.delete",
       "channels.connect"
     ],
+    "knowledge.view": "knowledge",
+    "knowledge.create": "knowledge.create",
+    "knowledge.edit": "knowledge.edit",
+    "knowledge.delete": "knowledge.delete",
     "finance.view": "money",
     "finance.overview.view": "money",
     "finance.overview.view_bot_cost": "money",
