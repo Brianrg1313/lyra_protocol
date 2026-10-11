@@ -15,14 +15,14 @@ typedef PermissionSections = Map<String, Map<String, bool>>;
 abstract final class PermissionCatalog {
   /// Section → its actions, in the backend's order.
   static const Map<String, List<String>> sections = {
-    "inventory": ["restock", "remove", "return", "hold", "configure", "pictures"],
+    "inventory": ["restock", "remove", "return", "hold", "transfer", "receive", "configure", "pictures"],
     "reservations": ["create", "manage"],
     "pos": ["sell", "cancel"],
     "sales": ["fulfill"],
     "money": ["charge", "void", "accounts", "export"],
     "employees": ["manage"],
     "permissions": ["assign", "templates"],
-    "products": ["create", "edit", "delete", "import", "structure"],
+    "products": ["create", "edit", "delete", "price", "import", "structure"],
     "chats": ["reply", "manage", "assign", "bot"],
     "channels": ["create", "edit", "delete", "connect"],
     "appointments": ["book", "configure"],
@@ -366,7 +366,7 @@ abstract final class PermissionPresets {
       "Runs the whole business, except the accounts it receives money into and the templates",
       keys: [
         "inventory", "inventory.restock", "inventory.remove", "inventory.return", "inventory.hold",
-        "inventory.configure", "inventory.pictures",
+        "inventory.configure", "inventory.pictures", "inventory.transfer", "inventory.receive",
         "reservations", "reservations.create", "reservations.manage",
         "pos", "pos.sell", "pos.cancel",
         "sales", "sales.fulfill",
