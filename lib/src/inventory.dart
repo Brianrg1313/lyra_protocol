@@ -26,12 +26,16 @@ abstract final class FieldTypes {
   static const url = "URL";
   static const options = "OPTIONS";
   static const categories = "CATEGORIES";
+
+  /// The sizes a product comes in: a list like [categories], ordered by the backend as a scale.
+  static const sizes = "SIZES";
+
   static const image = "IMAGE";
   static const stock = "STOCK";
 
   static const Set<String> all = {
     text, textarea, title, description, sku, barcode, number, decimal, price, currency, discount,
-    percentage, measure, counter, boolean, date, datetime, email, phone, url, options, categories,
+    percentage, measure, counter, boolean, date, datetime, email, phone, url, options, categories, sizes,
     image, stock,
   };
 
@@ -39,10 +43,10 @@ abstract final class FieldTypes {
   static const Set<String> readOnly = {counter, stock};
 
   /// What `match` searches (I-26).
-  static const Set<String> searchable = {text, textarea, title, description, sku, barcode, options, categories};
+  static const Set<String> searchable = {text, textarea, title, description, sku, barcode, options, categories, sizes};
 
   /// Fields with a list of options (I-15).
-  static const Set<String> listed = {options, categories};
+  static const Set<String> listed = {options, categories, sizes};
 
   /// Fields with a unit (a currency code or a magnitude).
   static const Set<String> withUnit = {price, currency, measure};
