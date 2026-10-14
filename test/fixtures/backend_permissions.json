@@ -34,6 +34,13 @@
       ]
     },
     {
+      "key": "shipments",
+      "actions": [
+        "dispatch",
+        "configure"
+      ]
+    },
+    {
       "key": "money",
       "actions": [
         "charge",
@@ -262,6 +269,9 @@
         "pos.cancel",
         "sales",
         "sales.fulfill",
+        "shipments",
+        "shipments.dispatch",
+        "shipments.configure",
         "money",
         "money.charge",
         "money.void",
@@ -326,6 +336,8 @@
         "pos.sell",
         "sales",
         "sales.fulfill",
+        "shipments",
+        "shipments.dispatch",
         "products",
         "chats",
         "chats.reply",
@@ -343,6 +355,7 @@
         "reservations",
         "pos",
         "sales",
+        "shipments",
         "money",
         "employees",
         "permissions",
