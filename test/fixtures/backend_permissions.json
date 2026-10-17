@@ -10,7 +10,19 @@
         "transfer",
         "receive",
         "configure",
+        "presentations",
         "pictures"
+      ]
+    },
+    {
+      "key": "kitchen",
+      "actions": [
+        "recipes",
+        "pause",
+        "produce",
+        "discard",
+        "modifiers",
+        "reports"
       ]
     },
     {
@@ -198,6 +210,24 @@
       "inventory.restock",
       "inventory.remove"
     ],
+    "supply_chain.view": "kitchen",
+    "supply_chain.recipes.view": [
+      "kitchen",
+      "products",
+      "inventory"
+    ],
+    "supply_chain.recipes.edit": "kitchen.recipes",
+    "supply_chain.recipes.pause": "kitchen.pause",
+    "supply_chain.recipes.produce": "kitchen.produce",
+    "supply_chain.recipes.discard": "kitchen.discard",
+    "supply_chain.recipes.presentations": "inventory.presentations",
+    "supply_chain.modifiers.view": "kitchen",
+    "supply_chain.modifiers.edit": [
+      "kitchen.modifiers",
+      "products",
+      "inventory"
+    ],
+    "supply_chain.reports.view": "kitchen.reports",
     "channels.view": "channels",
     "channels.create": "channels.create",
     "channels.edit": "channels.edit",
@@ -238,6 +268,7 @@
     "local_server.backups": "server.backups",
     "local_server.stop": "server.stop",
     "services.view": "*",
+    "lyra_business.view": "*",
     "marketing.view": "*",
     "report.view": "*",
     "external_services.view": "*",
