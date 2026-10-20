@@ -210,24 +210,27 @@
       "inventory.restock",
       "inventory.remove"
     ],
-    "supply_chain.view": "kitchen",
-    "supply_chain.recipes.view": [
+    "inventory.recipes.view": [
       "kitchen",
       "products",
       "inventory"
     ],
-    "supply_chain.recipes.edit": "kitchen.recipes",
-    "supply_chain.recipes.pause": "kitchen.pause",
-    "supply_chain.recipes.produce": "kitchen.produce",
-    "supply_chain.recipes.discard": "kitchen.discard",
-    "supply_chain.recipes.presentations": "inventory.presentations",
-    "supply_chain.modifiers.view": "kitchen",
-    "supply_chain.modifiers.edit": [
+    "inventory.recipes.edit": "kitchen.recipes",
+    "inventory.recipes.pause": "kitchen.pause",
+    "inventory.recipes.produce": "kitchen.produce",
+    "inventory.recipes.discard": "kitchen.discard",
+    "inventory.recipes.presentations": "inventory.presentations",
+    "inventory.modifiers.view": "kitchen",
+    "inventory.modifiers.edit": [
       "kitchen.modifiers",
       "products",
       "inventory"
     ],
-    "supply_chain.reports.view": "kitchen.reports",
+    "menu.view": "products",
+    "menu.create_table": "products.structure",
+    "menu.edit_table": "products.structure",
+    "menu.delete_table": "products.structure",
+    "menu.costs": "kitchen.reports",
     "channels.view": "channels",
     "channels.create": "channels.create",
     "channels.edit": "channels.edit",
