@@ -1,3 +1,58 @@
-.dart_tool/
-build/
+# ─── Secrets and credentials ──────────────────────────────────────────────
+# Never commit these. Templates (*.example) are the only exception.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.cer
+*.csr
+*.p12
+*.pfx
+*.der
+*.jks
+*.keystore
+*.secret
+secrets/
+credentials/
+
+# ─── Local data, logs and runtime state ───────────────────────────────────
+*.log
+*.pid
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.hive
+
+# ─── Dart / Pub ───────────────────────────────────────────────────────────
+# A library: consumers resolve their own versions, so the lockfile stays out.
 pubspec.lock
+.dart_tool/
+.packages
+.pub/
+build/
+coverage/
+doc/api/
+
+# ─── IDEs and editors ─────────────────────────────────────────────────────
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+.history
+*.swp
+*~
+
+# ─── Tooling / AI assistants (local only) ─────────────────────────────────
+.claude/settings.local.json
+CLAUDE.local.md
+
+# ─── OS ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
